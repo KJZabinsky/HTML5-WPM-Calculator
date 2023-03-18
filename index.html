@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<style>
+      body {
+        background: #293437;
+        margin-left: 10%;
+        margin-right: 10%;
+        margin-top: 5%;
+        margin-bottom: 5%;
+        font-family: 'Astloch';
+      }
+      .text {
+        color: #93E5BE;
+        font-family: 'Astloch', sans-serif;
+        font-size: 20px;
+        transition: 0.5s ease;
+        text-align: center;
+      }
+      .text2 {
+        color: #93E5BE;
+        font-family: 'Astloch', sans-serif;
+        font-size: 30px;
+        transition: 0.5s ease;
+        text-align: center;
+      }
+      .text3 {
+        color: #93E5BE;
+        font-family: 'Astloch', sans-serif;
+        font-size: 40px;
+        transition: 0.5s ease;
+        text-align: center;
+      }
+      div {
+        background: white;
+        padding: 10px;
+        border-radius: 10px;
+      }
+      @keyframes fly {
+        0% { transform: translate(0px,0px) rotate(0deg); }
+        25% { transform: translate(0px,0px) rotate(20deg); }
+        50% { transform: translate(0px,0px) rotate(-20deg); }
+        75% { transform: translate(0px 0px) rotate(0deg); }
+        100% { transform: translate(0px,0px) rotate(0deg); }
+      }
+      @keyframes down {
+        0% { transform: translate(0px,0px) rotate(0deg); }
+        25% { transform: translate(0px,0px) rotate(0deg); }
+        50% { transform: translate(0px,0px) rotate(0deg); }
+        75% { transform: translate(0px 0px) rotate(0deg); }
+        100% { transform: translate(0px,0px) rotate(0deg); }
+      }
+      @media only screen and (max-width: 768px) {
+        body {
+          margin-left: 5%;
+          margin-right: 5%;
+        }
+      }
+    </style>
+  <head>
+    <title>WPM Calculator</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      h1 {
+        text-align: center;
+        margin-top: 20px;
+      }
+      #text {
+        display: block;
+        margin: 0 auto;
+        padding: 10px;
+        width: 70%;
+        height: 150px;
+        font-size: 18px;
+        border: 2px solid #ccc;
+        border-radius: 5px;
+        resize: none;
+      }
+      .timer {
+        font-size: 48px;
+        text-align: center;
+        margin-top: 30px;
+      }
+      .result {
+        font-size: 24px;
+        text-align: center;
+        margin-top: 20px;
+      }
+      .error {
+        color: red;
+        font-weight: bold;
+      }
+      button {
+  		background-color: #4CAF50;
+  		border: none;
+  		color: white;
+  		padding: 12px 24px;
+  		text-align: center;
+  		text-decoration: none;
+  		display: inline-block;
+  		font-size: 16px;
+  		margin: 4px 2px;
+  		cursor: pointer;
+ 		border-radius: 25px;
+}
+
+button:hover {
+  background-color: #3e8e41;
+}
+
+    </style>
+  </head>
+  <body>
+  	<div>
+    <h1>WPM Calculator</h1>
+    <textarea id="text" rows="10" cols="50"></textarea>
+    <br>
+    <center><button onclick="startTimer()">Start Timer</button>
+    <br><br>
+    <div class="timer">60</div>
+    <div class="result"></div>
+
+    <script>
+    var timerInterval;
+
+function startTimer() {
+  // ...
+  timerInterval = setInterval(function() {
+    // ...
+  }, 1000);
+}
+
+function stopTimer() {
+  clearInterval(timerInterval);
+}
+
+   		 function stopTimer() {
+ 		 clearInterval(timerInterval);
+		}
+
+      function startTimer() {
+        var text = document.getElementById("text").value.trim();
+        var words = text.split(/\s+/).length;
+        var timer = 60; // seconds
+        var start = Date.now();
+        
+        // update timer every second
+        var timerInterval = setInterval(function() {
+          var elapsed = Math.floor((Date.now() - start) / 1000); // convert to seconds
+          var secondsLeft = timer - elapsed;
+          if (secondsLeft >= 0) {
+            document.querySelector('.timer').innerHTML = secondsLeft;
+          } else {
+            clearInterval(timerInterval);
+            var wpm = Math.round(words / (timer / 60));
+            var errorCount = countErrors(text, document.getElementById("text").value);
+            var errorString = errorCount > 0 ? ' with ' + errorCount + ' errors' : '';
+            document.querySelector('.result').innerHTML = 'Your WPM is: ' + wpm + errorString;
+          }
+        }, 1000);
+      }
+      
+      function countErrors(expected, actual) {
+        var errors = 0;
+        for (var i = 0; i < Math.min(expected.length, actual.length); i++) {
+          if (expected[i] !== actual[i]) {
+            errors++;
+          }
+        }
+        return errors;
+      }
+    </script>
+  </body>
+</html>
